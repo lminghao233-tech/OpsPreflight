@@ -1,0 +1,78 @@
+{
+  "dataset": "controlled-synthetic-regression-v1",
+  "total": 8,
+  "passed": 8,
+  "production_accuracy_claim": false,
+  "cases": [
+    {
+      "case": "safe-owned-change",
+      "expected": "PASS",
+      "actual": "PASS",
+      "passed": true,
+      "rules": []
+    },
+    {
+      "case": "public-management-port",
+      "expected": "BLOCK",
+      "actual": "BLOCK",
+      "passed": true,
+      "rules": [
+        "NETWORK-001"
+      ]
+    },
+    {
+      "case": "public-database",
+      "expected": "BLOCK",
+      "actual": "BLOCK",
+      "passed": true,
+      "rules": [
+        "DATA-001"
+      ]
+    },
+    {
+      "case": "encryption-disabled",
+      "expected": "BLOCK",
+      "actual": "BLOCK",
+      "passed": true,
+      "rules": [
+        "DATA-002"
+      ]
+    },
+    {
+      "case": "iam-double-wildcard",
+      "expected": "BLOCK",
+      "actual": "BLOCK",
+      "passed": true,
+      "rules": [
+        "IAM-001"
+      ]
+    },
+    {
+      "case": "stateful-replacement",
+      "expected": "BLOCK",
+      "actual": "BLOCK",
+      "passed": true,
+      "rules": [
+        "CHANGE-002"
+      ]
+    },
+    {
+      "case": "backup-reduced",
+      "expected": "REVIEW",
+      "actual": "REVIEW",
+      "passed": true,
+      "rules": [
+        "DATA-003"
+      ]
+    },
+    {
+      "case": "replicas-reduced",
+      "expected": "REVIEW",
+      "actual": "REVIEW",
+      "passed": true,
+      "rules": [
+        "RELIABILITY-001"
+      ]
+    }
+  ]
+}

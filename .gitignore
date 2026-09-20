@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.venv/
+.coverage
+htmlcov/
+*.db
+*.sqlite*
+.env
+tfplan
+tfplan.json
+dist/
+build/
+*.egg-info/
+

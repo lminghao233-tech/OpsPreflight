@@ -1,0 +1,14 @@
+services:
+  opspreflight:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      OPSPREFLIGHT_DATABASE: /data/opspreflight.db
+      OPSPREFLIGHT_API_KEY: change-me-for-non-demo-use
+    volumes:
+      - opspreflight-data:/data
+
+volumes:
+  opspreflight-data:
+

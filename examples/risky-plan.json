@@ -1,0 +1,55 @@
+{
+  "format_version": "1.2",
+  "resource_changes": [
+    {
+      "address": "aws_security_group.database",
+      "type": "aws_security_group",
+      "change": {
+        "actions": ["update"],
+        "before": {"ingress": []},
+        "after": {
+          "ingress": [
+            {"from_port": 22, "to_port": 5432, "cidr_blocks": ["0.0.0.0/0"]}
+          ]
+        }
+      }
+    },
+    {
+      "address": "aws_db_instance.orders",
+      "type": "aws_db_instance",
+      "change": {
+        "actions": ["delete", "create"],
+        "before": {
+          "publicly_accessible": false,
+          "storage_encrypted": true,
+          "backup_retention_period": 14,
+          "master_password": "old-secret"
+        },
+        "after": {
+          "publicly_accessible": true,
+          "storage_encrypted": false,
+          "backup_retention_period": 1,
+          "master_password": "new-secret"
+        },
+        "before_sensitive": {"master_password": true},
+        "after_sensitive": {"master_password": true}
+      }
+    },
+    {
+      "address": "aws_iam_policy.admin",
+      "type": "aws_iam_policy",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": {
+          "policy": {
+            "Statement": [
+              {"Effect": "Allow", "Action": "*", "Resource": "*"}
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
+
