@@ -32,6 +32,10 @@ class StorageBriefTests(unittest.TestCase):
         store.save_analysis(result)
         count = store.connection.execute("SELECT COUNT(*) FROM analyses").fetchone()[0]
         self.assertEqual(count, 1)
+        events = store.connection.execute(
+            "SELECT COUNT(*) FROM audit_events WHERE event_type = 'analysis.created'"
+        ).fetchone()[0]
+        self.assertEqual(events, 1)
 
     def test_block_requires_break_glass(self):
         store = Store()

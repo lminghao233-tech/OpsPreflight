@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 
 from .analyzer import Analyzer
 from .brief import deterministic_brief
+from .copilot import ReviewAgent
 from .models import AnalysisContext
 from .storage import Store
 
@@ -36,7 +37,11 @@ class BriefRequest(BaseModel):
     audience: Literal["developer", "approver", "manager"] = "approver"
 
 
-app = FastAPI(title="OpsPreflight", version="0.1.0")
+class AgentReviewRequest(AnalyzeRequest):
+    audience: Literal["developer", "approver", "manager"] = "approver"
+
+
+app = FastAPI(title="OpsPreflight", version="0.2.0")
 store = Store(os.getenv("OPSPREFLIGHT_DATABASE", ":memory:"))
 
 
@@ -63,6 +68,20 @@ def create_analysis(request: AnalyzeRequest) -> dict[str, Any]:
     result = Analyzer().analyze(request.plan, context)
     store.save_analysis(result)
     return result.to_dict()
+
+
+@app.post("/v1/agent/reviews", dependencies=[Depends(require_api_key)])
+def create_agent_review(request: AgentReviewRequest) -> dict[str, Any]:
+    context = AnalysisContext(
+        repository=request.repository,
+        commit=request.commit,
+        environment=request.environment,
+        pull_request=request.pull_request,
+        owners=request.owners,
+    )
+    review = ReviewAgent().review(request.plan, context, audience=request.audience)
+    store.save_analysis(Analyzer().analyze(request.plan, context))
+    return review.to_dict()
 
 
 def _get_or_404(analysis_id: str) -> dict[str, Any]:

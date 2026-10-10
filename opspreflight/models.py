@@ -45,7 +45,7 @@ class AnalysisResult:
     affected_services: tuple[str, ...]
     findings: tuple[Finding, ...]
     context: AnalysisContext
-    policy_version: str = "2026-09-portfolio-v1"
+    policy_version: str = "2026-10-portfolio-v2"
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)

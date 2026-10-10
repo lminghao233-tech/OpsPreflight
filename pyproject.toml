@@ -1,12 +1,13 @@
 [project]
 name = "opspreflight"
-version = "0.1.0"
-description = "Evidence-driven Terraform change risk gate portfolio MVP"
+version = "0.2.0"
+description = "Evidence-driven Terraform review agent with hybrid runbook RAG"
 requires-python = ">=3.10"
 dependencies = ["fastapi>=0.115,<1", "uvicorn>=0.30,<1", "pydantic>=2.8,<3"]
 
 [project.optional-dependencies]
-dev = ["coverage>=7.6,<8", "httpx>=0.27,<1"]
+ai = ["openai-agents>=0.23,<1"]
+dev = ["coverage>=7.6,<8", "httpx2>=2.12,<3"]
 
 [project.scripts]
 opspreflight = "opspreflight.cli:main"
@@ -16,5 +17,8 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["opspreflight*"]
+include = ["opspreflight*", "runbooks*"]
+
+[tool.setuptools.package-data]
+runbooks = ["*.json"]
 

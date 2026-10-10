@@ -8,3 +8,9 @@ Never attach real `tfplan`, `tfplan.json`, credentials or identifiable
 infrastructure details to a public issue. Reproduce with the synthetic plan
 format in `examples/`.
 
+Terraform names, tags and descriptions are treated as untrusted input. Reports
+for prompt injection, secret-redaction bypass, citation forgery, verdict
+mutation or Break-glass bypass are in scope. The optional model integration must
+receive only the redacted evidence packet and must never be used as the release
+authority.
+

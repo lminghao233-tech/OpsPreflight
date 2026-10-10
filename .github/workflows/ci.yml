@@ -16,3 +16,4 @@ jobs:
       - run: coverage run -m unittest discover -v
       - run: coverage report --fail-under=84
       - run: python scripts/run_eval.py
+      - run: python scripts/run_agent_eval.py

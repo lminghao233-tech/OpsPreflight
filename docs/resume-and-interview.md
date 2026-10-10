@@ -2,32 +2,33 @@
 
 ## Resume-ready wording
 
-**OpsPreflight - Terraform change risk and release approval portfolio MVP**
+**OpsPreflight | Terraform Review Agent, FastAPI, Hybrid RAG, Agents SDK**
 
-- Implemented Terraform plan JSON parsing, two-layer sensitive-data redaction
-  and eight deterministic policies that produce explainable PASS/REVIEW/BLOCK
-  decisions before release.
-- Added dependency blast-radius traversal, stable SHA-256 fingerprints,
-  historical outcome points, SQLite WAL audit events and explicit Break-glass
-  approval for BLOCK findings.
-- Delivered FastAPI and CLI interfaces, Docker and GitHub Actions, with 47
-  automated tests, 94% package branch coverage and 8/8 controlled synthetic
-  regression cases.
+- Built an evidence-driven IaC review agent that combines eight deterministic
+  Terraform risk policies, dependency blast-radius analysis and historical
+  outcome signals into immutable `PASS / REVIEW / BLOCK` decisions.
+- Added hybrid BM25+dense runbook RAG, source citations, embedded
+  prompt-injection scanning and code-level invariants preventing an LLM from
+  changing verdicts or inventing evidence.
+- Delivered FastAPI/CLI interfaces, SQLite approval and Break-glass audit trails,
+  Docker, GitHub Actions, 59 tests with 96% branch coverage, and separate
+  controlled policy and Agent/RAG evaluations.
 
-The phrase **controlled synthetic regression cases** must remain. `8/8` is not
-a production accuracy claim.
+Keep **controlled synthetic evaluation** next to the 8/8 and 5/5 figures. They
+are regression results rather than production accuracy.
 
 ## 90-second pitch
 
-"Small teams often review Terraform plans manually, so risky changes and the
-reason behind approvals are easy to miss. OpsPreflight parses plan JSON, redacts
-sensitive fields and evaluates eight deterministic policies. It then combines
-the highest policy score with dependency blast radius and relevant historical
-outcomes. Strong findings force BLOCK; a normal approval cannot erase that fact,
-so continuing requires an explicit audited Break-glass. I kept AI outside the
-safety decision: briefing can explain evidence, but it cannot change the
-verdict. The public repository uses synthetic plans and now has 47 tests, 94%
-branch coverage and an eight-case reproducible evaluation. It is a local
-portfolio MVP; PostgreSQL, OIDC, real GitHub App integration and authorized
-production replay remain future work."
+"OpsPreflight solves a release-review problem rather than adding chat to
+Terraform. It parses and redacts a plan, then deterministic policy, dependency
+blast radius and previous rollback or incident outcomes calculate the release
+verdict. The review agent uses that immutable result to retrieve the relevant
+operational runbooks through hybrid BM25 and dense search, and returns actions,
+questions, citations and a machine-readable trace. IaC descriptions and tags are
+untrusted, so I scan embedded prompt injection before any model-facing step.
+Citation allow-listing and verdict equality are enforced in code. BLOCK can only
+proceed through an explicit, reasoned Break-glass audit event. The complete
+workflow, API and evaluations run without a paid model; an optional Agents SDK
+example adds security and SRE specialist handoffs strictly as an explanation
+layer. That separation makes the system testable and safe to degrade."
 

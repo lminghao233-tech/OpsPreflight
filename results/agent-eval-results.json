@@ -1,0 +1,45 @@
+{
+  "dataset": "controlled-synthetic-agent-eval-v1",
+  "total": 5,
+  "passed": 5,
+  "retrieval_recall_at_3": 1.0,
+  "verdict_invariant_rate": 1.0,
+  "production_accuracy_claim": false,
+  "cases": [
+    {
+      "case": "public-port",
+      "retrieval_hit": true,
+      "verdict_preserved": true,
+      "citations_valid": true,
+      "passed": true
+    },
+    {
+      "case": "encryption",
+      "retrieval_hit": true,
+      "verdict_preserved": true,
+      "citations_valid": true,
+      "passed": true
+    },
+    {
+      "case": "iam",
+      "retrieval_hit": true,
+      "verdict_preserved": true,
+      "citations_valid": true,
+      "passed": true
+    },
+    {
+      "case": "replicas",
+      "retrieval_hit": true,
+      "verdict_preserved": true,
+      "citations_valid": true,
+      "passed": true
+    },
+    {
+      "case": "safe",
+      "retrieval_hit": true,
+      "verdict_preserved": true,
+      "citations_valid": true,
+      "passed": true
+    }
+  ]
+}

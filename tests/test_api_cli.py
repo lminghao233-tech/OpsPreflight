@@ -76,6 +76,20 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(brief.json()["verdict"], "PASS")
         self.assertGreaterEqual(len(timeline.json()), 2)
 
+    def test_agent_review_is_grounded_and_preserves_verdict(self):
+        response = self.client.post(
+            "/v1/agent/reviews",
+            json={
+                "plan": plan("bucket", {}, {"encrypted": False}),
+                "environment": "production",
+                "owners": {"resource.test": "team"},
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        payload = response.json()
+        self.assertEqual(payload["verdict"], "BLOCK")
+        self.assertIn("RB-DATA-001", payload["citations"])
+
 
 class CliTests(unittest.TestCase):
     def write_plan(self, directory: str, raw_plan) -> Path:
@@ -108,6 +122,18 @@ class CliTests(unittest.TestCase):
                 with self.assertRaises(SystemExit) as error:
                     cli_main()
             self.assertEqual(error.exception.code, 2)
+
+    def test_cli_agent_review(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = self.write_plan(
+                directory, plan("bucket", {}, {"encrypted": False})
+            )
+            argv = ["opspreflight", "review", str(path), "--environment", "production"]
+            with patch.object(sys, "argv", argv), redirect_stdout(io.StringIO()) as output:
+                cli_main()
+            payload = json.loads(output.getvalue())
+            self.assertEqual(payload["verdict"], "BLOCK")
+            self.assertIn("RB-DATA-001", payload["citations"])
 
 
 if __name__ == "__main__":

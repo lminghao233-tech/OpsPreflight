@@ -7,6 +7,7 @@ RUN useradd --create-home --uid 10001 appuser
 WORKDIR /app
 COPY pyproject.toml README.md ./
 COPY opspreflight ./opspreflight
+COPY runbooks ./runbooks
 RUN pip install --no-cache-dir .
 USER appuser
 EXPOSE 8000

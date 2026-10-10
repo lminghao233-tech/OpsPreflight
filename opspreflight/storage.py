@@ -44,14 +44,23 @@ class Store:
     def save_analysis(self, result: AnalysisResult) -> None:
         payload = json.dumps(result.to_dict(), ensure_ascii=False, sort_keys=True)
         with self.connection:
-            self.connection.execute(
+            inserted = self.connection.execute(
                 "INSERT OR IGNORE INTO analyses VALUES (?, ?, ?, ?, ?)",
                 (result.analysis_id, result.fingerprint, result.verdict, payload, _now()),
             )
-            self.connection.execute(
-                "INSERT INTO audit_events (analysis_id, event_type, actor, reason, payload, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-                (result.analysis_id, "analysis.created", "system", None, "{}", _now()),
-            )
+            if inserted.rowcount:
+                self.connection.execute(
+                    "INSERT INTO audit_events (analysis_id, event_type, actor, reason, payload, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                    (result.analysis_id, "analysis.created", "system", None, "{}", _now()),
+                )
+
+    def close(self) -> None:
+        self.connection.close()
+
+    def __del__(self) -> None:  # pragma: no cover - interpreter cleanup
+        connection = getattr(self, "connection", None)
+        if connection is not None:
+            connection.close()
 
     def get_analysis(self, analysis_id: str) -> dict[str, Any] | None:
         row = self.connection.execute(
