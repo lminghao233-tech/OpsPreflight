@@ -1,4 +1,4 @@
-"""Eight deterministic risk policies described by the portfolio project."""
+"""Eight deterministic risk policies used by the release gate."""
 
 from __future__ import annotations
 

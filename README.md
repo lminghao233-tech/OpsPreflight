@@ -1,5 +1,10 @@
 # OpsPreflight — Evidence-Driven IaC Review Agent
 
+[![CI](https://github.com/lminghao233-tech/OpsPreflight/actions/workflows/ci.yml/badge.svg)](https://github.com/lminghao233-tech/OpsPreflight/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 OpsPreflight is a production-shaped Terraform change reviewer that combines
 **deterministic policy, blast-radius analysis, hybrid runbook RAG, agent
 orchestration, prompt-injection defense and an auditable approval timeline**.
@@ -91,6 +96,24 @@ opspreflight review examples/risky-plan.json \
 The review output includes the immutable analysis, required actions, open
 questions, runbook citations, sparse/dense retrieval scores, injection findings
 and each orchestration step.
+
+<details>
+<summary>Example review decision</summary>
+
+```json
+{
+  "verdict": "BLOCK",
+  "final_score": 100,
+  "citations": ["RB-NETWORK-001"],
+  "trace": [
+    {"tool": "deterministic_policy_engine", "status": "completed"},
+    {"tool": "hybrid_runbook_search", "status": "completed"},
+    {"tool": "validate_review_invariants", "status": "passed"}
+  ]
+}
+```
+
+</details>
 
 Start the API:
 
@@ -185,12 +208,10 @@ and authorized real-plan evaluation.
 
 - [Architecture and trust boundary](docs/architecture.md)
 - [Production-readiness boundary](docs/production-readiness.md)
-- [Interview evidence and honest claims](docs/interview-evidence.md)
-- [Resume wording and interview pitch](docs/resume-and-interview.md)
 
 ## Author
 
-Liu Minghao — AI application and solution engineering portfolio
+Liu Minghao — AI/LLM application and platform engineering
 GitHub: [@lminghao233-tech](https://github.com/lminghao233-tech)
 
 ## License

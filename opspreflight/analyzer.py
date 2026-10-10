@@ -28,7 +28,7 @@ class Analyzer:
                 "repository": context.repository,
                 "commit": context.commit,
                 "environment": context.environment,
-                "policy_version": "2026-10-portfolio-v2",
+                "policy_version": "2026-10-v2",
             },
             sort_keys=True,
             ensure_ascii=False,

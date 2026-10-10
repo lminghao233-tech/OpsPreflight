@@ -1,6 +1,6 @@
 # Production readiness boundary
 
-Version 0.2.0 is a local or single-node portfolio system. It demonstrates the
+Version 0.2.0 is a local or single-node reference system. It demonstrates the
 architecture and controls but is not presented as an enterprise control plane.
 
 ## Implemented
